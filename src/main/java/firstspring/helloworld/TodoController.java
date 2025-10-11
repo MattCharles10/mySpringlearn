@@ -1,14 +1,21 @@
 package firstspring.helloworld;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/todo")
 public class TodoController {
 
+    @Autowired
+    private  TodoService todoService ;
+
     @GetMapping("/get")
     String getTodo(){
+
+        todoService.getTodo();
         return "todo";
+
     }
 
     @PostMapping("/Create")
@@ -39,7 +46,7 @@ public class TodoController {
     }
     @DeleteMapping("/Delete/{id}")
     String Deleteidbyid(@PathVariable long id){
-        return "Update with id" + id;
+        return "Delete with id" + id;
     }
 
 }
