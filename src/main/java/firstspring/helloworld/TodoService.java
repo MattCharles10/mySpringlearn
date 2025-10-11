@@ -1,5 +1,6 @@
 package firstspring.helloworld;
 
+import firstspring.helloworld.models.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,9 +10,10 @@ public class TodoService {
     @Autowired
     private  TodoRepository todoRepository;
 
+    public Todo createTodo(Todo todo){
+        return  todoRepository.save(todo);
 
-
-    public void getTodo(){
-        System.out.println(todoRepository.getallTodos());
     }
+
+
 }

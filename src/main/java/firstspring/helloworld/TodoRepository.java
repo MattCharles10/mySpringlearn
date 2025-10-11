@@ -1,14 +1,14 @@
 package firstspring.helloworld;
 
-import org.springframework.stereotype.Component;
 
-@Component
-public class TodoRepository {
+import firstspring.helloworld.models.Todo;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.yaml.snakeyaml.events.Event;
 
-    String getallTodos(){
+//CRUDE
+public interface TodoRepository extends JpaRepository<Todo, Long> {
 
-        return "Todos";
-    }
+
 
 
 

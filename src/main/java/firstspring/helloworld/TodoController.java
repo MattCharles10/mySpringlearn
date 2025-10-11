@@ -1,6 +1,9 @@
 package firstspring.helloworld;
 
+import firstspring.helloworld.models.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,15 +16,15 @@ public class TodoController {
     @GetMapping("/get")
     String getTodo(){
 
-        todoService.getTodo();
+
         return "todo";
 
     }
 
     @PostMapping("/Create")
-    String Creatuser(@RequestBody String body){
+    ResponseEntity<Todo> Creatuser(@RequestBody Todo todo){
+        return new  ResponseEntity<Todo>(todoService.createTodo(todo) , HttpStatus.CREATED);
 
-        return body;
 
     }
 
