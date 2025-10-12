@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/todo")
 public class TodoController {
@@ -13,43 +15,39 @@ public class TodoController {
     @Autowired
     private  TodoService todoService ;
 
-    @GetMapping("/get")
-    String getTodo(){
-
-
-        return "todo";
-
-    }
 
     @PostMapping("/Create")
     ResponseEntity<Todo> Creatuser(@RequestBody Todo todo){
-        return new  ResponseEntity<Todo>(todoService.createTodo(todo) , HttpStatus.CREATED);
 
+          Todo createTodo = todoService.createTodo(todo);
+          return new  ResponseEntity<Todo>(createTodo , HttpStatus.CREATED);
 
     }
 
     //path variabile
 
     @GetMapping("/{id}")
-    String getid(@PathVariable long id){
+    ResponseEntity<Todo> getTodoById(@PathVariable long id){
+        try{
+            Todo createTodo = todoService.getTodoById(id);
+            return new  ResponseEntity<Todo>(createTodo , HttpStatus.CREATED);
+        }catch (RuntimeException exception){
+            return new  ResponseEntity<>(null , HttpStatus.NOT_FOUND);
+        }
 
-        return "todo id" + id;
-
+    }
+    @GetMapping
+    ResponseEntity<List<Todo>> getTodes (){
+        return  new ResponseEntity<List<Todo>>(todoService.getTodos() , HttpStatus.OK);
     }
     // requestparam
-    @GetMapping
-    String getidparam(@RequestParam(name = "getid") long id){
 
-        return "todo with id" + id;
-
+    @PutMapping
+    ResponseEntity<Todo> updatebyid(@RequestBody Todo todo){
+       return new ResponseEntity<>(todoService.updateTodo(todo) , HttpStatus.OK);
     }
-    @PutMapping("/update/{id}")
-    String updateidbyid(@PathVariable long id){
-       return "Update with id" + id;
+    @DeleteMapping("/{id}")
+    void Deleteidbyid(@PathVariable long id) {
+        todoService.deleteTodoById(id);
     }
-    @DeleteMapping("/Delete/{id}")
-    String Deleteidbyid(@PathVariable long id){
-        return "Delete with id" + id;
-    }
-
 }
