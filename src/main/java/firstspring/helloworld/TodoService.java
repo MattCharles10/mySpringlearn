@@ -2,6 +2,9 @@ package firstspring.helloworld;
 
 import firstspring.helloworld.models.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +19,12 @@ public class TodoService {
         return  todoRepository.save(todo);
 
     }
+
+    public Page<Todo> getallTodespage(int page , int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return todoRepository.findAll(pageable);
+    }
+
     public Todo getTodoById(Long id){
         return  todoRepository.findById(id).orElseThrow(() -> new RuntimeException("Todo bot sound"));
     }
