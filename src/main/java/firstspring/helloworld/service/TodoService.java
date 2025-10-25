@@ -1,6 +1,7 @@
-package firstspring.helloworld;
+package firstspring.helloworld.service;
 
 import firstspring.helloworld.models.Todo;
+import firstspring.helloworld.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,7 +14,7 @@ import java.util.List;
 public class TodoService {
 
     @Autowired
-    private  TodoRepository todoRepository;
+    private TodoRepository todoRepository;
 
     public Todo createTodo(Todo todo){
         return  todoRepository.save(todo);
